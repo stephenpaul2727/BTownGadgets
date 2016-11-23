@@ -23,27 +23,49 @@ margin: 10px 0;
 a:hover {
 text-decoration:none;
 }
+a:active {
+text-decoration:none;
+
+}
+#navbar{
+position:fixed;
+top:10%;
+left:0;
+}
+
 </style>
 
 </head>
-<body style="background-color: #d7dfed">
-<div class="container-fluid">
+<body style="background-color:#d7dfed"; overflow:scroll>
+
 <h1>
-<img src="Images/btowngadgetslogo.png" class="img-responsive" width="250dp"/>
+<table class="table" style="border:null">
+<thead>
+<th><img src="Images/btowngadgetslogo.png" class="img-responsive" width="250dp"/></th>
+<th><button style="float:right;margin-right:5px" type="button" class="btn btn-warning">SignUp</button>
+<button style="float:right;margin-right:5px" type="button" class="btn btn-default">Login</button></th>
+</thead>
+</table>
 </h1>
-<div class="row">
+
+<span></span>
+<div class="container-fluid" id="navbar">
+
+<div style="margin-top:2%" class="row">
 <div class="col-md-2" style="background-color:#FF9999"><a href="#" style="color:black">Home</a></div>
 <div class="col-md-2" style="background-color:#99CCFF">
 
 <div class="dropdown">
 <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color:black">Mobiles</a>
 <ul class="dropdown-menu" style="background-color:#99CCFF;width:184px">
-<li><a href="#">Samsung</a></li>
+<li><a href="#">Samsung</a></li> 
 <li><a href="#">Apple</a></li>
 <li><a href="#">Motorola</a></li>
 <li><a href="#">BlackBerry</a></li>
 <li><a href="#">One Plus</a></li>
 <li><a href="#">Micromax</a></li>
+<li><a href="#">LG</a></li>
+
 </ul>
 </div>
 
@@ -93,8 +115,9 @@ text-decoration:none;
 <li><a href="#">Apple</a></li>
 <li><a href="#">Lenovo</a></li>
 <li><a href="#">HP</a></li>
-<li><a href="#">RazerBlade</a></li>
+<li><a href="#">Dell</a></li>
 <li><a href="#">Microsoft</a></li>
+<li><a href="#">Asus</a></li>
 </ul>
 </div>
 
@@ -111,15 +134,17 @@ text-decoration:none;
 </div>
 
 </div>
+</div>
+<div style="overflow:scroll;height:435px;margin:0px;padding:0px" >
+<a href="#"><img src="Images/add13.jpg" style="width:100%; height:435px" /></a>
+<a href="#"><img src="Images/add14.jpg" style="width:100%; height:435px" /></a>
+<a href="#"><img src="Images/add11.jpg" style="width:100%; height:435px" /></a>
 
 
 </div>
-<div class="container">
 
+<p align="center">&copy; Copyrights Reserved 2016.BTownGadgets Inc.</p>
 
-
-
-</div>
 
 </div>
 	
