@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>BTown Gadgets</title>
+<script type="text/javascript">
+function validate()
+{
+var user=document.forms["login"]["username"].value;
+var pwd=document.forms["login"]["password"].value;
+if(user==""||user==null||user.length<3||user.length>10||user==/^[a-zA-Z]/)
+{
+	alert("Enter");
+	return false;
+}
+else if(pwd==null||pwd==""||pwd.length<6||pwd.length>15)
+{
+alert("Enter a Valid User name");
+return false;
+}
+else return true;
+	
+}
+</script>
+</head>
+<body>
+<form action="ServletController" method="get">
+		<input type="hidden" name="what" value="login" />
+		<div style="color: #FF0000;">${errorMessage}</div><br>
+		<table>
+			<tr><td>UserName</td><td>:<input type="text" id="un" name="username" /></td></tr>
+			<tr><td>Password</td><td>:<input type="password" name="password" /></td></tr>
+			<tr><td></td><td><input type="submit" value="Login" /></td></tr>
+		</table>
+	</form>
+</body>
+</html>
