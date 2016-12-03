@@ -37,15 +37,15 @@ public class DataBaseCreater {
 	      
 	      String create_pro = "CREATE TABLE PRODUCTS("
 		      		+ "pro_id SERIAL PRIMARY KEY, cat_id INT NOT NULL, model_name VARCHAR(20) NOT NULL, brand VARCHAR(20),"
-		      		+ "quantity INT, feedback VARCHAR(20), rating INT, price DECIMAL NOT NULL,"
+		      		+ "quantity INT, feedback VARCHAR(50), rating INT, price DECIMAL NOT NULL, image_path VARCHAR(50),"
 		      		+ "FOREIGN KEY (cat_id) REFERENCES CATEGORY(cat_id));";
 	      
-	      String create_ord = "CREATE TABLE ORDERS(order_id SERIAL PRIMARY KEY, cus_id INT REFERENCES CUSTOMERS, start_date DATE, end_date DATE);";
+	      String create_ord = "CREATE TABLE ORDERS(order_id SERIAL PRIMARY KEY, cus_id INT REFERENCES CUSTOMERS, order_date DATE);";
 	      
 	      String status_type_enum = "CREATE TYPE status_type_enum AS ENUM ('Pending', 'Delivered', 'Returned');";
 	      String create_ord_details = "CREATE TABLE ORDER_DETAILS("
 		      		+ "order_id INT REFERENCES ORDERS, pro_id INT REFERENCES PRODUCTS, quantity INT, price DECIMAL NOT NULL,"
-		      		+ "status status_type_enum, PRIMARY KEY(order_id, pro_id));";
+		      		+ "start_date DATE, end_date DATE, status status_type_enum, emp_id INT REFERENCES EMPLOYEES, PRIMARY KEY(order_id, pro_id));";
 	      
 	      String create_spec_types = "CREATE TABLE SPECIFICATION_TYPES(spec_id SERIAL PRIMARY KEY, spec_name VARCHAR(20) NOT NULL);";
 	      
@@ -61,34 +61,42 @@ public class DataBaseCreater {
 	      String insert_emp_a = "INSERT INTO EMPLOYEES (fname,lname,address,email,designation,uname,pwd) VALUES "
 		      		+ "('empa','empA','Address-a','empa@gmail.com','Staff','empa123','empa@123');";
 	      String insert_emp_b = "INSERT INTO EMPLOYEES (fname,lname,address,email,designation,uname,pwd) VALUES "
-		      		+ "('empb','empB','Address-b','empb@gmail.com','Supervisor','empb234','empb@234');";
+		      		+ "('empb','empB','Address-b','empb@gmail.com','Supervisor','empb123','empb@123');";
 	      String insert_emp_c = "INSERT INTO EMPLOYEES (fname,lname,address,email,designation,uname,pwd) VALUES "
-		      		+ "('empc','empC','Address-c','empc@gmail.com','SalesManager','empc345','empc@345');";
+		      		+ "('empc','empC','Address-c','empc@gmail.com','SalesManager','empc123','empc@123');";
+	      String insert_emp_d = "INSERT INTO EMPLOYEES (fname,lname,address,email,designation,uname,pwd) VALUES "
+		      		+ "('empd','empD','Address-d','empd@gmail.com','Staff','empd123','empd@123');";
+	      String insert_emp_e = "INSERT INTO EMPLOYEES (fname,lname,address,email,designation,uname,pwd) VALUES "
+		      		+ "('empe','empE','Address-e','empe@gmail.com','Staff','empe123','empe@123');";
 	      
 	      String insert_cat_1 = "INSERT INTO CATEGORY (cat_name) VALUES ('Mobile');";
 	      String insert_cat_2 = "INSERT INTO CATEGORY (cat_name) VALUES ('Camera');";
 	      String insert_cat_3 = "INSERT INTO CATEGORY (cat_name) VALUES ('Watch');";
 	      String insert_cat_4 = "INSERT INTO CATEGORY (cat_name) VALUES ('Laptop');";
 	      
-	      String insert_pro_1 = "INSERT INTO PRODUCTS (cat_id,model_name,brand,quantity,price) VALUES (1,'iPhone7','Apple',70,65);";
-	      String insert_pro_2 = "INSERT INTO PRODUCTS (cat_id,model_name,brand,quantity,price) VALUES (1,'pixel','Google',50,59);";
-	      String insert_pro_3 = "INSERT INTO PRODUCTS (cat_id,model_name,brand,quantity,price) VALUES (1,'Note7','Samsung',5,30);";
-	      String insert_pro_4 = "INSERT INTO PRODUCTS (cat_id,model_name,brand,quantity,price) VALUES (2,'D5200','Nikon',30,25);";
-	      String insert_pro_5 = "INSERT INTO PRODUCTS (cat_id,model_name,brand,quantity,price) VALUES (2,'eos_7D','Canon',35,28);";
-	      String insert_pro_6 = "INSERT INTO PRODUCTS (cat_id,model_name,brand,quantity,price) VALUES (3,'moto_360','Motorola',120,18);";
-	      String insert_pro_7 = "INSERT INTO PRODUCTS (cat_id,model_name,brand,quantity,price) VALUES (3,'q_wander','Fossil',60,14);";
-	      String insert_pro_8 = "INSERT INTO PRODUCTS (cat_id,model_name,brand,quantity,price) VALUES (4,'studio','Dell',12,45);";
-	      String insert_pro_9 = "INSERT INTO PRODUCTS (cat_id,model_name,brand,quantity,price) VALUES (4,'blade_stealth','Razer',4,89);";
-	      String insert_pro_10 = "INSERT INTO PRODUCTS (cat_id,model_name,brand,quantity,price) VALUES (4,'vaio','Sony',20,37);";
+	      String insert_pro_1 = "INSERT INTO PRODUCTS (cat_id,model_name,brand,quantity,price,image_path) VALUES (1,'iPhone7','Apple',70,65,'Images/add1.jpg');";
+	      String insert_pro_2 = "INSERT INTO PRODUCTS (cat_id,model_name,brand,quantity,price,image_path) VALUES (1,'pixel','Google',50,59,'Images/add2.jpg');";
+	      String insert_pro_3 = "INSERT INTO PRODUCTS (cat_id,model_name,brand,quantity,price,image_path) VALUES (1,'Note7','Samsung',5,30,'Images/add3.jpg');";
+	      String insert_pro_4 = "INSERT INTO PRODUCTS (cat_id,model_name,brand,quantity,price,image_path) VALUES (2,'D5200','Nikon',30,25,'Images/add4.jpg');";
+	      String insert_pro_5 = "INSERT INTO PRODUCTS (cat_id,model_name,brand,quantity,price,image_path) VALUES (2,'eos_7D','Canon',35,28,'Images/add5.jpg');";
+	      String insert_pro_6 = "INSERT INTO PRODUCTS (cat_id,model_name,brand,quantity,price,image_path) VALUES (3,'moto_360','Motorola',120,18,'Images/add6.jpg');";
+	      String insert_pro_7 = "INSERT INTO PRODUCTS (cat_id,model_name,brand,quantity,price,image_path) VALUES (3,'q_wander','Fossil',60,14,'Images/add7.jpg');";
+	      String insert_pro_8 = "INSERT INTO PRODUCTS (cat_id,model_name,brand,quantity,price,image_path) VALUES (4,'studio','Dell',12,45,'Images/add8.jpg');";
+	      String insert_pro_9 = "INSERT INTO PRODUCTS (cat_id,model_name,brand,quantity,price,image_path) VALUES (4,'blade_stealth','Razer',4,89,'Images/add9.jpg');";
+	      String insert_pro_10 = "INSERT INTO PRODUCTS (cat_id,model_name,brand,quantity,price,image_path) VALUES (4,'vaio','Sony',20,37,'Images/add10.jpg');";
 	      
-	      String insert_ord_1 = "INSERT INTO ORDERS (cus_id, start_date, end_date) VALUES (1, '2016-05-24', '2016-06-24');";
-	      String insert_ord_2 = "INSERT INTO ORDERS (cus_id, start_date, end_date) VALUES (1, '2016-12-01', '2017-01-01');";
-	      String insert_ord_3 = "INSERT INTO ORDERS (cus_id, start_date, end_date) VALUES (2, '2016-04-02', '2016-05-02');";
+	      String insert_ord_1 = "INSERT INTO ORDERS (cus_id, order_date) VALUES (1, '2016-05-20');";
+	      String insert_ord_2 = "INSERT INTO ORDERS (cus_id, order_date) VALUES (1, '2016-11-25');";
+	      String insert_ord_3 = "INSERT INTO ORDERS (cus_id, order_date) VALUES (2, '2016-03-25');";
 	      
-	      String insert_ord_det_1 = "INSERT INTO ORDER_DETAILS (order_id, pro_id, quantity, price, status) VALUES (1,2,3,177,'Returned');";
-	      String insert_ord_det_2 = "INSERT INTO ORDER_DETAILS (order_id, pro_id, quantity, price, status) VALUES (1,4,2,50,'Returned');";
-	      String insert_ord_det_3 = "INSERT INTO ORDER_DETAILS (order_id, pro_id, quantity, price, status) VALUES (2,10,1,37,'Pending');";
-	      String insert_ord_det_4 = "INSERT INTO ORDER_DETAILS (order_id, pro_id, quantity, price, status) VALUES (3,6,2,36,'Delivered');";
+	      String insert_ord_det_1 = "INSERT INTO ORDER_DETAILS (order_id, pro_id, quantity, price, start_date, end_date, status, emp_id) "
+	      		+ "VALUES (1,2,3,177,'2016-05-24','2016-06-24','Returned',1);";
+	      String insert_ord_det_2 = "INSERT INTO ORDER_DETAILS (order_id, pro_id, quantity, price, start_date, end_date, status, emp_id) "
+	      		+ "VALUES (1,4,2,50,'2016-05-24','2016-06-24','Returned',1);";
+	      String insert_ord_det_3 = "INSERT INTO ORDER_DETAILS (order_id, pro_id, quantity, price, start_date, end_date, status, emp_id) "
+	      		+ "VALUES (2,10,1,37,null,null,'Pending',4);";
+	      String insert_ord_det_4 = "INSERT INTO ORDER_DETAILS (order_id, pro_id, quantity, price, start_date, end_date, status, emp_id) "
+	      		+ "VALUES (3,6,2,36,'2016-04-02','2016-05-02','Delivered',5);";
 	      
 	      String insert_spec_type_1 = "INSERT INTO SPECIFICATION_TYPES (spec_name) VALUES ('Megapixel_count');";
 	      String insert_spec_type_2 = "INSERT INTO SPECIFICATION_TYPES (spec_name) VALUES ('OS');";
@@ -114,8 +122,8 @@ public class DataBaseCreater {
 	         stmt = c.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
 	         c.setAutoCommit(false);
 	         
-	         stmt.addBatch(drop_emp);
 	         stmt.addBatch(drop_ord_details);
+	         stmt.addBatch(drop_emp);
 	         stmt.addBatch(drop_spec_value);
 	         stmt.addBatch(drop_spec_type);
 	         stmt.addBatch(drop_ord);
@@ -149,6 +157,8 @@ public class DataBaseCreater {
 	         stmt.addBatch(insert_emp_a);
 	         stmt.addBatch(insert_emp_b);
 	         stmt.addBatch(insert_emp_c);
+	         stmt.addBatch(insert_emp_d);
+	         stmt.addBatch(insert_emp_e);
 	         stmt.executeBatch();
 	         System.out.println("==============EMPLOYEES inserted===============");
 	         stmt.addBatch(insert_cat_1);

@@ -12,6 +12,7 @@
 <ul><li><form name="myform" action="customer.jsp"><a href="#" onclick="document.forms.myform.submit()">Home</a></form></li>
 <li><form name="myform1" action="ServletController" method="get"><a href="#" onclick="document.forms.myform1.submit()"><input type="hidden" name="what" value="ViewProducts">View Products</a></form></li>
 <li><form name="myform2" action="ServletController" method="get"><a href="#" onclick="document.forms.myform2.submit()"><input type="hidden" name="what" value="ViewPurchaseHistory"/>Purchase History</a></form></li>
+<li><form name="myform3" action="shoppingCart.jsp"><a href="#" onclick="document.forms.myform3.submit()">Shopping Cart</a></form></li>
 </ul>
 </div>
 
@@ -19,26 +20,34 @@
 <% List<Product> proList = (List<Product>)request.getAttribute("ProductsList"); %>
 <%int i=0;int size=proList.size(); %>
 <%if(size==0){ %>
-<center><h3>No Candidates</h3></center>
+<center><h3>No Products</h3></center>
 <%} %>
+
+<%if(size!=0){ %>
 
 <table style="allign:center">
 <tr>
 <th>PIC</th>
-<th>Details</th></tr>
+<th>Details</th>
+<th></th></tr>
 <% while (i<size) {%>
-<tr><td></td>
-<td>
-<ul>
+<tr><td><img src="<%=proList.get(i).getImagePath() %>" class="img-responsive" width="250dp"/></td>
+<td><ul>
 <li><%=proList.get(i).getModel_name()%></li>
 <li><%=proList.get(i).getBrand()%></li>
 <li>Price: $<%=proList.get(i).getPrice()%></li>
 <li>Available: <%=proList.get(i).getQuantity()%></li>
-</ul>
-</td>
-</tr>
+</ul></td>
+<td>
+<form name="myform" action="ServletController" method="get">
+<input type="hidden" name="what" value="ViewItem">
+<input type="submit" value="View" ><input type="hidden" name="productId" value="<%=proList.get(i).getPro_id()%>">
+</form>
+</td></tr>
 <%i++;  }  %>
 </table>
+
+<%}%>
 </div>
 
 </body>
