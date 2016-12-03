@@ -32,7 +32,6 @@ public class ServletController extends HttpServlet {
      */
     public ServletController() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -66,7 +65,7 @@ public class ServletController extends HttpServlet {
 						response.sendRedirect("customer.jsp");
 					} else {
 						employee = loginDao.getEmployeeDetails(username);
-						session.setAttribute("User", customer);
+						session.setAttribute("User", employee);
 						if(designation.equals("Staff")) {
 							response.sendRedirect("staff.jsp");
 						} else if(designation.equals("Supervisor")) {
@@ -105,7 +104,7 @@ public class ServletController extends HttpServlet {
 				product = (Product)request.getSession().getAttribute("CartProduct");
 				int selectedQuantity = Integer.parseInt(request.getParameter("selectedQuantity"));
 				System.out.println("=======>SQ::"+selectedQuantity);
-				System.out.println("=======>::Pro"+product.getModel_name());
+				System.out.println("=======>Pro::"+product.getModel_name());
 				float totalUnitPrice = selectedQuantity*product.getPrice();
 				cartItem = setCartItemValues(product);
 				cartItem.setSelectedQuantity(selectedQuantity);
