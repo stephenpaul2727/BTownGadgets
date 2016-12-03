@@ -12,6 +12,7 @@
 <ul><li><form name="myform" action="customer.jsp"><a href="#" onclick="document.forms.myform.submit()">Home</a></form></li>
 <li><form name="myform1" action="ServletController" method="get"><a href="#" onclick="document.forms.myform1.submit()"><input type="hidden" name="what" value="ViewProducts">View Products</a></form></li>
 <li><form name="myform2" action="ServletController" method="get"><a href="#" onclick="document.forms.myform2.submit()"><input type="hidden" name="what" value="ViewPurchaseHistory"/>Purchase History</a></form></li>
+<li><form name="myform4" action="ServletController" method="post"><a href="#" onclick="document.forms.myform4.submit()"><input type="hidden" name="action" value="Logout"/>Logout</a></form></li>
 </ul>
 </div>
 
@@ -38,10 +39,10 @@
     <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><b><c:out value="${cartItem.price}"/></b></font></td>
     <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif">
     	<input type='hidden' name='itemIndex' value='<c:out value="${counter.count}"/>'>
-    	<input type='text' name="updatedQuantity" value='<c:out value="${cartItem.selectedQuantity}"/>' size='2'>
-    	<input type="submit" name="cartAction" value="Update"></font></td>
+    	<input type='number' name="updatedQuantity" min="1" max="${cartItem.quantity}" value='<c:out value="${cartItem.selectedQuantity}"/>' size='2'>
+    	<input type="submit" name="action" value="Update"></font></td>
     <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif">$<c:out value="${cartItem.totalUnitPrice}"/></font></td>
-    <td><input type="submit" name="cartAction" value="Delete"></td>
+    <td><input type="submit" name="action" value="Delete"></td>
   </tr>
   </form> 
 </c:forEach>
@@ -49,7 +50,7 @@
 <b>Total Cart Price: </b><c:out value="${Cart.totalCartPrice}"></c:out>
 <c:if test="${Cart.itemCount!=0}">
   <form action="ServletController" method="post">
-  	<input type="hidden" name="cartAction" value="PlaceOrder">
+  	<input type="hidden" name="action" value="PlaceOrder">
 	<input type="submit" value="Place Order" >
   </form>
 </c:if>

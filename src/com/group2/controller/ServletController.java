@@ -134,6 +134,7 @@ public class ServletController extends HttpServlet {
 		ci.setModel_name(product.getModel_name());
 		ci.setBrand(product.getBrand());
 		ci.setPrice(product.getPrice());
+		ci.setQuantity(product.getQuantity());
 		return ci;
 	}
 
@@ -145,7 +146,7 @@ public class ServletController extends HttpServlet {
 		Customer customer = new Customer();
 		OrdersDAO orderDao = new OrdersDAO();
 		Cart cart = new Cart();
-		String action = request.getParameter("cartAction");
+		String action = request.getParameter("action");
 		try {
 			if(action.equals("Update")) {
 				int itemIndex = Integer.parseInt(request.getParameter("itemIndex"));
@@ -182,7 +183,11 @@ public class ServletController extends HttpServlet {
 				String redirectUrl = "shoppingCart.jsp";
 				RequestDispatcher rd = request.getRequestDispatcher(redirectUrl);
 				rd.forward(request, response);
-			}
+			} else if(action.equals("Logout")) {
+					request.getSession().invalidate();
+					String redirectUrl = "login.jsp";
+					response.sendRedirect(redirectUrl);
+				}
 			
 		} catch(Exception e) {
 			e.printStackTrace();

@@ -21,7 +21,7 @@ public class ProductsDAO {
 		ResultSet rs;
 		Class.forName("org.postgresql.Driver");
 		c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres", "123");
-		st = c.prepareStatement("SELECT * FROM PRODUCTS;");
+		st = c.prepareStatement("SELECT * FROM PRODUCTS ORDER BY pro_id;");
 		rs = st.executeQuery();
 		List<Product> productList = new ArrayList<Product>();
 		int i = 0;

@@ -12,6 +12,7 @@
 <li><form name="myform1" action="ServletController" method="get"><a href="#" onclick="document.forms.myform1.submit()"><input type="hidden" name="what" value="ViewProducts">View Products</a></form></li>
 <li><form name="myform2" action="ServletController" method="get"><a href="#" onclick="document.forms.myform2.submit()"><input type="hidden" name="what" value="ViewPurchaseHistory"/>Purchase History</a></form></li>
 <li><form name="myform3" action="shoppingCart.jsp"><a href="#" onclick="document.forms.myform3.submit()">Shopping Cart</a></form></li>
+<li><form name="myform4" action="ServletController" method="post"><a href="#" onclick="document.forms.myform4.submit()"><input type="hidden" name="action" value="Logout"/>Logout</a></form></li>
 </ul>
 </div>
 <div>

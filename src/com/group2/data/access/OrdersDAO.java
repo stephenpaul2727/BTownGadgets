@@ -12,7 +12,8 @@ import com.group2.bean.CartItem;
 public class OrdersDAO {
 	
 	String INSERT_ORDER_DETAILS_SQL = "INSERT INTO ORDER_DETAILS (order_id, pro_id, quantity, price, status, emp_id) VALUES (%d,%d,%d,%f,\'%s\',%d);";
-
+	String UPDATE_PRODUCT_QUANTITY = "UPDATE PRODUCTS SET quantity=%d WHERE pro_id=%d;";
+	
 	public void insertOrderItems(List<CartItem> cartItems, int cus_id) throws ClassNotFoundException, SQLException {
 		Connection c = null;
 		Statement stmt = null;
@@ -51,12 +52,18 @@ public class OrdersDAO {
         	int selectedQuantity = cartItem.getSelectedQuantity();
         	float totalUnitPrice = cartItem.getTotalUnitPrice(); 
         	int pro_id = cartItem.getPro_id();
-        	String sql = String.format(INSERT_ORDER_DETAILS_SQL, order_id,pro_id,selectedQuantity,totalUnitPrice,"Pending",emp_id);
+        	String insert_sql = String.format(INSERT_ORDER_DETAILS_SQL, order_id,pro_id,selectedQuantity,totalUnitPrice,"Pending",emp_id);
+        	int availableQuantity = cartItem.getQuantity();
+        	int remianingQuantity = availableQuantity - selectedQuantity;
+        	String update_sql = String.format(UPDATE_PRODUCT_QUANTITY, remianingQuantity,pro_id);
         	System.out.println("====Adding command to batch====");
-        	System.out.println(sql);
-        	stmt.addBatch(sql);
+        	System.out.println(insert_sql);
+        	System.out.println(update_sql);
+        	stmt.addBatch(insert_sql);
+        	stmt.addBatch(update_sql);
         }
         stmt.executeBatch();
+        
         c.commit();
 		rs.close();
 		stmt_order.close();
