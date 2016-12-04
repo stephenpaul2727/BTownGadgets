@@ -77,37 +77,5 @@ public class ProductsDAO {
 		c.close();
 		return product;
 	}
-	
-	public List<OrderDetails> getPastOrders(int cus_id) throws ClassNotFoundException, SQLException {
-		Connection c = null;
-		PreparedStatement st;
-		ResultSet rs;
-		Class.forName("org.postgresql.Driver");
-		c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres", "123");
-		st = c.prepareStatement("SELECT c.fname,o.order_id,o.order_date,od.pro_id,p.model_name,p.brand,od.quantity,od.price,od.start_date,od.end_date,od.status "
-				+ "FROM ORDERS AS o INNER JOIN ORDER_DETAILS AS od ON o.order_id=od.order_id "
-				+ "INNER JOIN CUSTOMERS AS c ON c.cus_id=o.cus_id INNER JOIN PRODUCTS AS p ON od.pro_id=p.pro_id WHERE c.cus_id=?;");
-		st.setInt(1,cus_id);
-		rs = st.executeQuery();
-		List<OrderDetails> orderItems = new ArrayList<OrderDetails>();
-		int i = 0;
-		while(rs.next()) {
-			orderItems.add(new OrderDetails());
-			orderItems.get(i).setOrder_id(rs.getInt("order_id"));
-			orderItems.get(i).setPro_id(rs.getInt("pro_id"));
-			orderItems.get(i).setModel_name(rs.getString("model_name"));
-			orderItems.get(i).setBrand(rs.getString("brand"));
-			orderItems.get(i).setQuantity(rs.getInt("quantity"));
-			orderItems.get(i).setPrice(rs.getFloat("price"));
-			orderItems.get(i).setStatus(rs.getString("status"));
-			orderItems.get(i).setStart_date(rs.getString("start_date"));
-			orderItems.get(i).setEnd_date(rs.getString("end_date"));
-			orderItems.get(i).setOrder_date(rs.getString("order_date"));
-			i++;
-		}
-		rs.close();
-		st.close();
-		c.close();
-		return orderItems;
-	}
+
 }

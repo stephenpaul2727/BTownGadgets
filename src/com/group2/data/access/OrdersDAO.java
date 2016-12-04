@@ -2,17 +2,26 @@ package com.group2.data.access;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.group2.bean.CartItem;
+import com.group2.bean.OrderDetails;
 
 public class OrdersDAO {
 	
-	String INSERT_ORDER_DETAILS_SQL = "INSERT INTO ORDER_DETAILS (order_id, pro_id, quantity, price, status, emp_id) VALUES (%d,%d,%d,%f,\'%s\',%d);";
+	String INSERT_ORDER_DETAILS_SQL = "INSERT INTO ORDER_DETAILS (order_id, pro_id, quantity, price, status, emp_id) VALUES (%d,%d,%d,%.2f,\'%s\',%d);";
 	String UPDATE_PRODUCT_QUANTITY = "UPDATE PRODUCTS SET quantity=%d WHERE pro_id=%d;";
+	String GET_ORDER_ITEMS_BY_STATUS = "SELECT c.cus_id,c.fname,o.order_id,o.order_date,p.pro_id,p.model_name,"
+			+ "p.brand,od.quantity,od.price,od.status,od.start_date,od.end_date FROM ORDERS AS o "
+			+ "INNER JOIN ORDER_DETAILS AS od ON o.order_id=od.order_id INNER JOIN PRODUCTS AS p ON p.pro_id=od.pro_id "
+			+ "INNER JOIN CUSTOMERS AS c ON o.cus_id=c.cus_id WHERE od.status='%s' AND od.emp_id=%d ORDER BY o.order_date;";
+	String UPDATE_DELIVERY_STATUS = "UPDATE ORDER_DETAILS SET status='Delivered',start_date=CURRENT_DATE,end_date=CURRENT_DATE+30 WHERE order_id=%d AND pro_id=%d;";
+	String UPDATE_RETURN_STATUS = "UPDATE ORDER_DETAILS SET status='Returned' WHERE order_id=%d AND pro_id=%d;";
 	
 	public void insertOrderItems(List<CartItem> cartItems, int cus_id) throws ClassNotFoundException, SQLException {
 		Connection c = null;
@@ -67,6 +76,114 @@ public class OrdersDAO {
         c.commit();
 		rs.close();
 		stmt_order.close();
+		stmt.close();
+		c.close();
+	}
+	
+	public List<OrderDetails> getAssignedDeliveriesByStatus(String status, int emp_id) throws ClassNotFoundException, SQLException {
+		Connection c = null;
+		PreparedStatement st;
+		ResultSet rs;
+		List<OrderDetails> orderItems = new ArrayList<OrderDetails>();
+		Class.forName("org.postgresql.Driver");
+		c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres", "123");
+		String sql = String.format(GET_ORDER_ITEMS_BY_STATUS, status, emp_id);
+		System.out.println("====Getting pending deliveries====");
+		System.out.println(sql);
+		st = c.prepareStatement(sql);
+		rs = st.executeQuery();
+		int i = 0;
+		while(rs.next()) {
+			orderItems.add(new OrderDetails());
+			orderItems.get(i).setCus_fname(rs.getString("fname"));
+			orderItems.get(i).setOrder_id(rs.getInt("order_id"));
+			orderItems.get(i).setPro_id(rs.getInt("pro_id"));
+			orderItems.get(i).setModel_name(rs.getString("model_name"));
+			orderItems.get(i).setBrand(rs.getString("brand"));
+			orderItems.get(i).setSelectedQuantity(rs.getInt("quantity"));
+			orderItems.get(i).setTotalUnitPrice(rs.getFloat("price"));
+			orderItems.get(i).setStatus(rs.getString("status"));
+			orderItems.get(i).setOrder_date(rs.getString("order_date"));
+			orderItems.get(i).setStart_date(rs.getString("start_date"));
+			orderItems.get(i).setEnd_date(rs.getString("end_date"));
+			i++;
+		}
+		rs.close();
+		st.close();
+		c.close();
+		return orderItems;
+		
+	}
+	
+	public List<OrderDetails> getPastOrders(int cus_id) throws ClassNotFoundException, SQLException {
+		Connection c = null;
+		PreparedStatement st;
+		ResultSet rs;
+		Class.forName("org.postgresql.Driver");
+		c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres", "123");
+		st = c.prepareStatement("SELECT c.fname,o.order_id,o.order_date,od.pro_id,p.model_name,p.brand,od.quantity,od.price,od.start_date,od.end_date,od.status "
+				+ "FROM ORDERS AS o INNER JOIN ORDER_DETAILS AS od ON o.order_id=od.order_id "
+				+ "INNER JOIN CUSTOMERS AS c ON c.cus_id=o.cus_id INNER JOIN PRODUCTS AS p ON od.pro_id=p.pro_id WHERE c.cus_id=? ORDER BY o.order_date;");
+		st.setInt(1,cus_id);
+		rs = st.executeQuery();
+		List<OrderDetails> orderItems = new ArrayList<OrderDetails>();
+		int i = 0;
+		while(rs.next()) {
+			orderItems.add(new OrderDetails());
+			orderItems.get(i).setOrder_id(rs.getInt("order_id"));
+			orderItems.get(i).setPro_id(rs.getInt("pro_id"));
+			orderItems.get(i).setModel_name(rs.getString("model_name"));
+			orderItems.get(i).setBrand(rs.getString("brand"));
+			orderItems.get(i).setSelectedQuantity(rs.getInt("quantity"));
+			orderItems.get(i).setTotalUnitPrice(rs.getFloat("price"));
+			orderItems.get(i).setStatus(rs.getString("status"));
+			orderItems.get(i).setStart_date(rs.getString("start_date"));
+			orderItems.get(i).setEnd_date(rs.getString("end_date"));
+			orderItems.get(i).setOrder_date(rs.getString("order_date"));
+			i++;
+		}
+		rs.close();
+		st.close();
+		c.close();
+		return orderItems;
+	}
+	
+	public void updateDeliveryStatus(List<OrderDetails> selectedRecords) throws ClassNotFoundException, SQLException {
+		Connection c = null;
+		Statement stmt = null;
+		Class.forName("org.postgresql.Driver");
+		c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres", "123");
+		stmt = c.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
+        c.setAutoCommit(false);
+		for(OrderDetails orderItem : selectedRecords) {
+			String sql = String.format(UPDATE_DELIVERY_STATUS, orderItem.getOrder_id(), orderItem.getPro_id());
+			System.out.println("=====Adding UPDATE command to Batch=======");
+			System.out.println(sql);
+			stmt.addBatch(sql);
+		}
+		
+		stmt.executeBatch();
+		c.commit();
+		stmt.close();
+		c.close();
+	}
+	
+	public void updateReturnStatus(List<OrderDetails> selectedRecords) throws ClassNotFoundException, SQLException {
+		Connection c = null;
+		Statement stmt = null;
+		Class.forName("org.postgresql.Driver");
+		c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres", "123");
+		stmt = c.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
+        c.setAutoCommit(false);
+		for(OrderDetails orderItem : selectedRecords) {
+			String sql = String.format(UPDATE_RETURN_STATUS, orderItem.getOrder_id(), orderItem.getPro_id());
+			System.out.println("=====Adding UPDATE command to Batch=======");
+			System.out.println(sql);
+			stmt.addBatch(sql);
+		}
+		
+		stmt.executeBatch();
+		c.commit();
 		stmt.close();
 		c.close();
 	}

@@ -46,6 +46,7 @@ public class ServletController extends HttpServlet {
 		Cart cart = new Cart();
 		LoginCheckDAO loginDao = new LoginCheckDAO();
 		ProductsDAO proDao = new ProductsDAO();
+		OrdersDAO ordersDao = new OrdersDAO();
 		List<Product> proList = new ArrayList<Product>();
 		List<OrderDetails> orderItems = new ArrayList<OrderDetails>();
 		String here = request.getParameter("what");
@@ -87,8 +88,8 @@ public class ServletController extends HttpServlet {
 				rd.forward(request, response);
 			} else if(here.equals("ViewPurchaseHistory")) {
 				HttpSession session = request.getSession();
-				Customer cus = (Customer)session.getAttribute("User");
-				orderItems = proDao.getPastOrders(cus.getCus_id());
+				customer = (Customer)session.getAttribute("User");
+				orderItems = ordersDao.getPastOrders(customer.getCus_id());
 				request.setAttribute("OrderItems", orderItems);
 				String redirectUrl = "viewPurchaseHistory.jsp";
 				RequestDispatcher rd = request.getRequestDispatcher(redirectUrl);
@@ -121,6 +122,20 @@ public class ServletController extends HttpServlet {
 				String redirectUrl = "shoppingCart.jsp";
 				RequestDispatcher rd = request.getRequestDispatcher(redirectUrl);
 				rd.forward(request, response);
+			} else if(here.equals("PendingDeliveries")) {
+				HttpSession session = request.getSession();
+				employee = (Employee)session.getAttribute("User");
+				orderItems = ordersDao.getAssignedDeliveriesByStatus("Pending", employee.getEmp_id());
+				session.setAttribute("PendingItems", orderItems);
+				String redirectUrl = "pendingDeliveries.jsp";
+				response.sendRedirect(redirectUrl);
+			} else if(here.equals("PendingReturns")) {
+				HttpSession session = request.getSession();
+				employee = (Employee)session.getAttribute("User");
+				orderItems = ordersDao.getAssignedDeliveriesByStatus("Delivered", employee.getEmp_id());
+				session.setAttribute("PendingReturns", orderItems);
+				String redirectUrl = "pendingReturns.jsp";
+				response.sendRedirect(redirectUrl);
 			}
 			
 		} catch(Exception e) {
@@ -144,8 +159,10 @@ public class ServletController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("IN THE Shopping Cart Controller ......");
 		Customer customer = new Customer();
+		Employee employee = new Employee();
 		OrdersDAO orderDao = new OrdersDAO();
 		Cart cart = new Cart();
+		List<OrderDetails> orderItems = new ArrayList<OrderDetails>();
 		String action = request.getParameter("action");
 		try {
 			if(action.equals("Update")) {
@@ -183,11 +200,54 @@ public class ServletController extends HttpServlet {
 				String redirectUrl = "shoppingCart.jsp";
 				RequestDispatcher rd = request.getRequestDispatcher(redirectUrl);
 				rd.forward(request, response);
+			} else if(action.equals("ItemsDelivered")) {
+				HttpSession session = request.getSession();
+				List<OrderDetails> selectedRecords = new ArrayList<OrderDetails>();
+				orderItems = (List<OrderDetails>)session.getAttribute("PendingItems");
+				String[] itemIndexes = request.getParameterValues("selectedItems");
+				List<Integer> selectedIndexes = new ArrayList<Integer>();
+				for(String s : itemIndexes) {
+					selectedIndexes.add(Integer.valueOf(s));
+				}
+				
+				for(int i = 0; i<orderItems.size(); i++) {
+					if(selectedIndexes.contains(i)) {
+						selectedRecords.add(orderItems.get(i));
+					}
+				}
+				orderItems.removeAll(selectedRecords);
+				orderDao.updateDeliveryStatus(selectedRecords);
+				session.setAttribute("PendingItems", orderItems);
+				employee = (Employee) session.getAttribute("User");
+				List<OrderDetails> pendingReturns = orderDao.getAssignedDeliveriesByStatus("Delivered", employee.getEmp_id());
+				session.setAttribute("PendingReturns", pendingReturns);
+				String redirectUrl = "pendingDeliveries.jsp";
+				response.sendRedirect(redirectUrl);	
+			} else if(action.equals("ItemsReturned")) {
+				HttpSession session = request.getSession();
+				List<OrderDetails> selectedRecords = new ArrayList<OrderDetails>();
+				orderItems = (List<OrderDetails>)session.getAttribute("PendingReturns");
+				String[] itemIndexes = request.getParameterValues("selectedItems");
+				List<Integer> selectedIndexes = new ArrayList<Integer>();
+				for(String s : itemIndexes) {
+					selectedIndexes.add(Integer.valueOf(s));
+				}
+				
+				for(int i = 0; i<orderItems.size(); i++) {
+					if(selectedIndexes.contains(i)) {
+						selectedRecords.add(orderItems.get(i));
+					}
+				}
+				orderItems.removeAll(selectedRecords);
+				orderDao.updateReturnStatus(selectedRecords);
+				session.setAttribute("PendingReturns", orderItems);
+				String redirectUrl = "pendingReturns.jsp";
+				response.sendRedirect(redirectUrl);	
 			} else if(action.equals("Logout")) {
 					request.getSession().invalidate();
 					String redirectUrl = "login.jsp";
 					response.sendRedirect(redirectUrl);
-				}
+			}
 			
 		} catch(Exception e) {
 			e.printStackTrace();

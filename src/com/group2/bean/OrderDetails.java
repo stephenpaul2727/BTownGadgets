@@ -1,18 +1,27 @@
 package com.group2.bean;
 
-public class OrderDetails {
+public class OrderDetails extends CartItem {
 
 	private int order_id;
-	private int pro_id;
 	private String start_date;
 	private String end_date;
-	private String model_name;
-	private String brand;
-	private int quantity;
-	private float price;
 	private String status;
 	private String order_date;
+	private int cus_id;
+	private String cus_fname;
 	
+	public int getCus_id() {
+		return cus_id;
+	}
+	public void setCus_id(int cus_id) {
+		this.cus_id = cus_id;
+	}
+	public String getCus_fname() {
+		return cus_fname;
+	}
+	public void setCus_fname(String cus_fname) {
+		this.cus_fname = cus_fname;
+	}
 	public String getOrder_date() {
 		return order_date;
 	}
@@ -25,12 +34,6 @@ public class OrderDetails {
 	public void setOrder_id(int order_id) {
 		this.order_id = order_id;
 	}
-	public int getPro_id() {
-		return pro_id;
-	}
-	public void setPro_id(int pro_id) {
-		this.pro_id = pro_id;
-	}
 	public String getStart_date() {
 		return start_date;
 	}
@@ -42,30 +45,6 @@ public class OrderDetails {
 	}
 	public void setEnd_date(String end_date) {
 		this.end_date = end_date;
-	}
-	public String getModel_name() {
-		return model_name;
-	}
-	public void setModel_name(String model_name) {
-		this.model_name = model_name;
-	}
-	public String getBrand() {
-		return brand;
-	}
-	public void setBrand(String brand) {
-		this.brand = brand;
-	}
-	public int getQuantity() {
-		return quantity;
-	}
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
-	public float getPrice() {
-		return price;
-	}
-	public void setPrice(float price) {
-		this.price = price;
 	}
 	public String getStatus() {
 		return status;
