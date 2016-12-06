@@ -29,7 +29,7 @@
 <div class="container-fluid" id="navbar">
 
 <div style="margin-top:0%" class="row">
-<div class="col-md-3" style="background-color:#FF9999"><form name="myform" action="customer.jsp"><a href="#" onclick="document.forms.myform.submit()" style="color:black">Home</a></form></div>
+<div class="col-md-3" style="background-color:#FF9999"><form name="myform9" action="customer.jsp"><a href="#" onclick="document.forms.myform9.submit()" style="color:black">Home</a></form></div>
 
 <div class="col-md-3" style="background-color:#b0cc86">
 <form name="myform1" action="ServletController" method="get"><a href="#" onclick="document.forms.myform1.submit()"><input type="hidden" name="what" value="ViewProducts">View Products</a></form>

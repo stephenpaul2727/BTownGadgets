@@ -13,6 +13,150 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <title>BTown Gadgets</title>
+
+<style>
+
+body, html {
+    height: 110%;
+    background-repeat: no-repeat;
+    background-image: linear-gradient(to left, #3a6186 , #89253e);
+}
+
+.card-container.card {
+    max-width: 350px;
+    padding: 40px 40px;
+}
+
+.btn {
+    font-weight: 700;
+    height: 36px;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: default;
+}
+
+/*
+ * Card component
+ */
+.card {
+    background-color: #F7F7F7;
+    /* just in case there no content*/
+    padding: 20px 25px 30px;
+    margin: 0 auto 25px;
+    margin-top: 50px;
+    /* shadows and rounded borders */
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+}
+
+.profile-img-card {
+    width: 96px;
+    height: 96px;
+    margin: 0 auto 10px;
+    display: block;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+}
+
+/*
+ * Form styles
+ */
+.profile-name-card {
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    margin: 10px 0 0;
+    min-height: 1em;
+}
+
+.reauth-email {
+    display: block;
+    color: #404040;
+    line-height: 2;
+    margin-bottom: 10px;
+    font-size: 14px;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.form-signin #inputEmail,
+.form-signin #inputPassword {
+    direction: ltr;
+    height: 44px;
+    font-size: 16px;
+}
+
+.form-signin input[type=email],
+.form-signin input[type=password],
+.form-signin input[type=text],
+.form-signin button {
+    width: 100%;
+    display: block;
+    margin-bottom: 10px;
+    z-index: 1;
+    position: relative;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.form-signin .form-control:focus {
+    border-color: rgb(104, 145, 162);
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgb(104, 145, 162);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgb(104, 145, 162);
+}
+
+.btn.btn-signin {
+    /*background-color: #4d90fe; */
+    background-color: rgb(104, 145, 162);
+    /* background-color: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33));*/
+    padding: 0px;
+    font-weight: 700;
+    font-size: 14px;
+    height: 36px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    border: none;
+    -o-transition: all 0.218s;
+    -moz-transition: all 0.218s;
+    -webkit-transition: all 0.218s;
+    transition: all 0.218s;
+}
+
+.btn.btn-signin:hover,
+.btn.btn-signin:active,
+.btn.btn-signin:focus {
+    background-color: rgb(12, 97, 33);
+}
+
+.forgot-password {
+    color: rgb(104, 145, 162);
+}
+
+.forgot-password:hover,
+.forgot-password:active,
+.forgot-password:focus{
+    color: rgb(12, 97, 33);
+}
+
+
+
+
+</style>
+
 <script type="text/javascript">
 function validate()
 {
@@ -34,28 +178,30 @@ function validate()
 		return true;
 	}
 }
+
 </script>
 </head>
-<body style="background-image:url("Images/back.jpg");">
-<img style="align:center;width:400px;height:50px" src="Images/btowngadgetslogo.png"/>
+<body>
+<img style="margin-left:450px;margin-top:4%;align:center;width:400px;height:50px" src="Images/btowngadgetslogo.png"/>
 
 
 <br/>
 <br/>
 <br/>
 <div >
-      <legend class="" style="color:#440591;font-weight:bold;font-size:25px">LOGIN</legend>
     </div>
-<div class="modal-dialog">
-				<div class="loginmodal-container">
-				  <form name="login" onSubmit ="return validate(this)" method="get" action ="ServletController">
-				  
+<div class="container">
+				<div class="card card-container">
+				<img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+				<p id="profile-name" class="profile-name-card"></p>
+				  <form class="form-signin" name="login" onSubmit ="return validate(this)" method="get" action ="ServletController">
+				  <span id="reauth-email" class="reauth-email"></span>
 				  <input type="hidden" name="what" value="login"/>
-					<input type="text" name="username" id ="user" placeholder="Username" required">
+					<input type="text" name="username" class="form-control" id ="user" placeholder="Username" required">
 					<br/><br/>
-					<input type="password" name="password" id="password" placeholder="Password"  required">
+					<input type="password" name="password" class="form-control" id="password" placeholder="Password"  required">
 					<br/><br/>
-					<input type="submit" name="login" class="login loginmodal-submit" value="Login">
+					<input type="submit" name="login" class="btn btn-lg btn-primary btn-block btn-signin" value="Login">
 				  </form>
 					
 				  <div class="login-help">
