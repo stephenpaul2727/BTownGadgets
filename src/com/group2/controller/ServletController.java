@@ -81,6 +81,7 @@ public class ServletController extends HttpServlet {
 					request.getRequestDispatcher("/login.jsp").forward(request, response);
 				}
 			} else if(here.equals("ViewProducts")) {
+				System.out.println("In View Products Controller");
 				proList = proDao.getAllProducts();
 				request.setAttribute("ProductsList", proList);
 				String redirectUrl = "viewProducts.jsp";

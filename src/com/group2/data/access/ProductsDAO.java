@@ -26,6 +26,7 @@ public class ProductsDAO {
 		List<Product> productList = new ArrayList<Product>();
 		int i = 0;
 		while(rs.next()) {
+			System.out.println("Adding Product to List");
 			productList.add(new Product());
 			productList.get(i).setPro_id(rs.getInt("pro_id"));
 			productList.get(i).setModel_name(rs.getString("model_name"));

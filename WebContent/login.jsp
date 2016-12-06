@@ -36,7 +36,7 @@ function validate()
 }
 </script>
 </head>
-<body>
+<body style="background-image:url("Images/back.jpg");">
 <img style="align:center;width:400px;height:50px" src="Images/btowngadgetslogo.png"/>
 
 
@@ -48,10 +48,12 @@ function validate()
     </div>
 <div class="modal-dialog">
 				<div class="loginmodal-container">
-				  <form name="login" onSubmit ="return validate(this)" method="post" action ="#">
-					<input type="text" name="user" id ="user" placeholder="Username" required">
+				  <form name="login" onSubmit ="return validate(this)" method="get" action ="ServletController">
+				  
+				  <input type="hidden" name="what" value="login"/>
+					<input type="text" name="username" id ="user" placeholder="Username" required">
 					<br/><br/>
-					<input type="password" name="pass" id="password" placeholder="Password"  required">
+					<input type="password" name="password" id="password" placeholder="Password"  required">
 					<br/><br/>
 					<input type="submit" name="login" class="login loginmodal-submit" value="Login">
 				  </form>
@@ -64,6 +66,7 @@ function validate()
 			</div>
 			<br/>
 			<br/>
+			<div style="color: #FF0000;">${errorMessage}</div><br>
 			<span id="confirmMessage" class="confirmMessage"></span>
 
 </body>
