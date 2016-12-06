@@ -102,16 +102,16 @@ public class DataBaseCreater {
 	      String insert_cat_3 = "INSERT INTO CATEGORY (cat_name) VALUES ('Watch');";
 	      String insert_cat_4 = "INSERT INTO CATEGORY (cat_name) VALUES ('Laptop');";
 	      
-	      String insert_pro_1 = "INSERT INTO PRODUCTS (cat_id,model_name,brand,quantity,price,image_path) VALUES (1,'iPhone7','Apple',70,650,'Images/add1.jpg');";
-	      String insert_pro_2 = "INSERT INTO PRODUCTS (cat_id,model_name,brand,quantity,price,image_path) VALUES (1,'pixel','Google',50,590,'Images/add2.jpg');";
-	      String insert_pro_3 = "INSERT INTO PRODUCTS (cat_id,model_name,brand,quantity,price,image_path) VALUES (1,'Note7','Samsung',5,500,'Images/add3.jpg');";
-	      String insert_pro_4 = "INSERT INTO PRODUCTS (cat_id,model_name,brand,quantity,price,image_path) VALUES (2,'D5200','Nikon',30,700,'Images/add4.jpg');";
-	      String insert_pro_5 = "INSERT INTO PRODUCTS (cat_id,model_name,brand,quantity,price,image_path) VALUES (2,'eos_7D','Canon',35,600,'Images/add5.jpg');";
-	      String insert_pro_6 = "INSERT INTO PRODUCTS (cat_id,model_name,brand,quantity,price,image_path) VALUES (3,'moto_360','Motorola',120,180,'Images/add6.jpg');";
-	      String insert_pro_7 = "INSERT INTO PRODUCTS (cat_id,model_name,brand,quantity,price,image_path) VALUES (3,'q_wander','Fossil',60,140,'Images/add7.jpg');";
-	      String insert_pro_8 = "INSERT INTO PRODUCTS (cat_id,model_name,brand,quantity,price,image_path) VALUES (4,'studio','Dell',12,450,'Images/add8.jpg');";
-	      String insert_pro_9 = "INSERT INTO PRODUCTS (cat_id,model_name,brand,quantity,price,image_path) VALUES (4,'blade_stealth','Razer',4,560,'Images/add9.jpg');";
-	      String insert_pro_10 = "INSERT INTO PRODUCTS (cat_id,model_name,brand,quantity,price,image_path) VALUES (4,'vaio','Sony',20,420,'Images/add10.jpg');";
+	      String insert_pro_1 = "INSERT INTO PRODUCTS (cat_id,model_name,brand,quantity,price,image_path) VALUES (1,'iPhone7','Apple',70,65,'Images/iphone.jpeg');";
+	      String insert_pro_2 = "INSERT INTO PRODUCTS (cat_id,model_name,brand,quantity,price,image_path) VALUES (1,'pixel','Google',50,59,'Images/pixel.jpeg');";
+	      String insert_pro_3 = "INSERT INTO PRODUCTS (cat_id,model_name,brand,quantity,price,image_path) VALUES (1,'Note7','Samsung',5,30,'Images/note7.jpg');";
+	      String insert_pro_4 = "INSERT INTO PRODUCTS (cat_id,model_name,brand,quantity,price,image_path) VALUES (2,'D5200','Nikon',30,25,'Images/nikon.jpg');";
+	      String insert_pro_5 = "INSERT INTO PRODUCTS (cat_id,model_name,brand,quantity,price,image_path) VALUES (2,'eos_7D','Canon',35,28,'Images/canon.jpg');";
+	      String insert_pro_6 = "INSERT INTO PRODUCTS (cat_id,model_name,brand,quantity,price,image_path) VALUES (3,'moto_360','Motorola',120,18,'Images/moto360.jpg');";
+	      String insert_pro_7 = "INSERT INTO PRODUCTS (cat_id,model_name,brand,quantity,price,image_path) VALUES (3,'q_wander','Fossil',60,14,'Images/fossil.jpeg');";
+	      String insert_pro_8 = "INSERT INTO PRODUCTS (cat_id,model_name,brand,quantity,price,image_path) VALUES (4,'studio','Dell',12,45,'Images/dell.jpg');";
+	      String insert_pro_9 = "INSERT INTO PRODUCTS (cat_id,model_name,brand,quantity,price,image_path) VALUES (4,'blade_stealth','Razer',4,89,'Images/razer.jpg');";
+	      String insert_pro_10 = "INSERT INTO PRODUCTS (cat_id,model_name,brand,quantity,price,image_path) VALUES (4,'vaio','Sony',20,37,'Images/sony.jpg');";
 	      
 	      String insert_ord_1 = "INSERT INTO ORDERS (cus_id, order_date) VALUES (1, '2016-05-20');";
 	      String insert_ord_2 = "INSERT INTO ORDERS (cus_id, order_date) VALUES (1, '2016-11-25');";
