@@ -198,7 +198,7 @@ public class ServletController extends HttpServlet {
 				List<CartItem> cartItems = cart.getCartItems();
 				orderDao.insertOrderItems(cartItems, customer.getCus_id());
 				session.removeAttribute("Cart");
-				String redirectUrl = "shoppingCart.jsp";
+				String redirectUrl = "customer.jsp";
 				RequestDispatcher rd = request.getRequestDispatcher(redirectUrl);
 				rd.forward(request, response);
 			} else if(action.equals("ItemsDelivered")) {
