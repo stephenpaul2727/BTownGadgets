@@ -85,11 +85,16 @@
 <td><%=orderItems.get(i).getOrder_id()%></td>
 <td><%=orderItems.get(i).getModel_name()%></td>
 <td><%=orderItems.get(i).getBrand()%></td>
-<td><%=orderItems.get(i).getQuantity()%></td>
-<td><%=orderItems.get(i).getPrice()%></td>
+<td><%=orderItems.get(i).getSelectedQuantity()%></td>
+<td>$<%=orderItems.get(i).getTotalUnitPrice()%></td>
 <td><%=orderItems.get(i).getStatus()%></td>
 <td><%=orderItems.get(i).getOrder_date()%></td>
+<% String returnDate = orderItems.get(i).getEnd_date();%>
+<%if(returnDate == null) { %>
+<td>Not Delivered</td>
+<%} else { %>
 <td><%=orderItems.get(i).getEnd_date()%></td>
+<%} %>
 </tr>
 <%i++;  }  %>
 </table>
