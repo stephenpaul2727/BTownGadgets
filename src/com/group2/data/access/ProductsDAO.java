@@ -1,7 +1,6 @@
 package com.group2.data.access;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,12 +14,10 @@ import com.group2.bean.Product;
 public class ProductsDAO {
 
 	public List<Product> getAllProducts() throws ClassNotFoundException, SQLException {
-		Connection c = null;
 		PreparedStatement st;
 		ResultSet rs;
-		Class.forName("org.postgresql.Driver");
-		c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres", "123");
-		st = c.prepareStatement("SELECT * FROM PRODUCTS ORDER BY pro_id;");
+		Connection connection = DataBaseConnection.getDBConnection();
+		st = connection.prepareStatement("SELECT * FROM PRODUCTS ORDER BY pro_id;");
 		rs = st.executeQuery();
 		List<Product> productList = new ArrayList<Product>();
 		int i = 0;
@@ -39,17 +36,15 @@ public class ProductsDAO {
 		}
 		rs.close();
 		st.close();
-		c.close();
+		connection.close();
 		return productList;
 	}
 	
 	public Product getProductItem(int productId) throws ClassNotFoundException, SQLException {
-		Connection c = null;
 		PreparedStatement st;
 		ResultSet rs;
-		Class.forName("org.postgresql.Driver");
-		c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres", "123");
-		st = c.prepareStatement("SELECT * FROM PRODUCTS AS p "
+		Connection connection = DataBaseConnection.getDBConnection();
+		st = connection.prepareStatement("SELECT * FROM PRODUCTS AS p "
 				+ "INNER JOIN SPECIFICATION_VALUES AS sv ON p.pro_id=sv.pro_id "
 				+ "INNER JOIN SPECIFICATION_TYPES AS st ON sv.spec_id=st.spec_id WHERE p.pro_id=?;");
 		st.setInt(1,productId);
@@ -74,7 +69,7 @@ public class ProductsDAO {
 		product.setSpecifications(specifications);
 		rs.close();
 		st.close();
-		c.close();
+		connection.close();
 		return product;
 	}
 

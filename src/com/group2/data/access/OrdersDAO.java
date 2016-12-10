@@ -1,7 +1,6 @@
 package com.group2.data.access;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -24,13 +23,11 @@ public class OrdersDAO {
 	String UPDATE_RETURN_STATUS = "UPDATE ORDER_DETAILS SET status='Returned' WHERE order_id=%d AND pro_id=%d;";
 	
 	public void insertOrderItems(List<CartItem> cartItems, int cus_id) throws ClassNotFoundException, SQLException {
-		Connection c = null;
 		Statement stmt = null;
 		ResultSet rs;
 		int emp_id = 0;
-		Class.forName("org.postgresql.Driver");
-		c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres", "123");
-		Statement stmt_order = c.createStatement();
+		Connection connection = DataBaseConnection.getDBConnection();
+		Statement stmt_order = connection.createStatement();
 		stmt_order.executeUpdate("INSERT INTO ORDERS (cus_id,order_date) VALUES ("+cus_id+",now());", Statement.RETURN_GENERATED_KEYS);
         rs = stmt_order.getGeneratedKeys();
         rs.next();
@@ -55,8 +52,8 @@ public class OrdersDAO {
             }
         }
         
-		stmt = c.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
-        c.setAutoCommit(false);
+		stmt = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
+        connection.setAutoCommit(false);
         for(CartItem cartItem : cartItems) {
         	int selectedQuantity = cartItem.getSelectedQuantity();
         	float totalUnitPrice = cartItem.getTotalUnitPrice(); 
@@ -73,24 +70,22 @@ public class OrdersDAO {
         }
         stmt.executeBatch();
         
-        c.commit();
+        connection.commit();
 		rs.close();
 		stmt_order.close();
 		stmt.close();
-		c.close();
+		connection.close();
 	}
 	
 	public List<OrderDetails> getAssignedDeliveriesByStatus(String status, int emp_id) throws ClassNotFoundException, SQLException {
-		Connection c = null;
 		PreparedStatement st;
 		ResultSet rs;
 		List<OrderDetails> orderItems = new ArrayList<OrderDetails>();
-		Class.forName("org.postgresql.Driver");
-		c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres", "123");
+		Connection connection = DataBaseConnection.getDBConnection();
 		String sql = String.format(GET_ORDER_ITEMS_BY_STATUS, status, emp_id);
 		System.out.println("====Getting pending deliveries====");
 		System.out.println(sql);
-		st = c.prepareStatement(sql);
+		st = connection.prepareStatement(sql);
 		rs = st.executeQuery();
 		int i = 0;
 		while(rs.next()) {
@@ -110,18 +105,16 @@ public class OrdersDAO {
 		}
 		rs.close();
 		st.close();
-		c.close();
+		connection.close();
 		return orderItems;
 		
 	}
 	
 	public List<OrderDetails> getPastOrders(int cus_id) throws ClassNotFoundException, SQLException {
-		Connection c = null;
 		PreparedStatement st;
 		ResultSet rs;
-		Class.forName("org.postgresql.Driver");
-		c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres", "123");
-		st = c.prepareStatement("SELECT c.fname,o.order_id,o.order_date,od.pro_id,p.model_name,p.brand,od.quantity,od.price,od.start_date,od.end_date,od.status "
+		Connection connection = DataBaseConnection.getDBConnection();
+		st = connection.prepareStatement("SELECT c.fname,o.order_id,o.order_date,od.pro_id,p.model_name,p.brand,od.quantity,od.price,od.start_date,od.end_date,od.status "
 				+ "FROM ORDERS AS o INNER JOIN ORDER_DETAILS AS od ON o.order_id=od.order_id "
 				+ "INNER JOIN CUSTOMERS AS c ON c.cus_id=o.cus_id INNER JOIN PRODUCTS AS p ON od.pro_id=p.pro_id WHERE c.cus_id=? ORDER BY o.order_date;");
 		st.setInt(1,cus_id);
@@ -144,17 +137,15 @@ public class OrdersDAO {
 		}
 		rs.close();
 		st.close();
-		c.close();
+		connection.close();
 		return orderItems;
 	}
 	
 	public void updateDeliveryStatus(List<OrderDetails> selectedRecords) throws ClassNotFoundException, SQLException {
-		Connection c = null;
 		Statement stmt = null;
-		Class.forName("org.postgresql.Driver");
-		c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres", "123");
-		stmt = c.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
-        c.setAutoCommit(false);
+		Connection connection = DataBaseConnection.getDBConnection();
+		stmt = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
+        connection.setAutoCommit(false);
 		for(OrderDetails orderItem : selectedRecords) {
 			String sql = String.format(UPDATE_DELIVERY_STATUS, orderItem.getOrder_id(), orderItem.getPro_id());
 			System.out.println("=====Adding UPDATE command to Batch=======");
@@ -163,18 +154,16 @@ public class OrdersDAO {
 		}
 		
 		stmt.executeBatch();
-		c.commit();
+		connection.commit();
 		stmt.close();
-		c.close();
+		connection.close();
 	}
 	
 	public void updateReturnStatus(List<OrderDetails> selectedRecords) throws ClassNotFoundException, SQLException {
-		Connection c = null;
 		Statement stmt = null;
-		Class.forName("org.postgresql.Driver");
-		c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres", "123");
-		stmt = c.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
-        c.setAutoCommit(false);
+		Connection connection = DataBaseConnection.getDBConnection();
+		stmt = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
+        connection.setAutoCommit(false);
 		for(OrderDetails orderItem : selectedRecords) {
 			String sql = String.format(UPDATE_RETURN_STATUS, orderItem.getOrder_id(), orderItem.getPro_id());
 			System.out.println("=====Adding UPDATE command to Batch=======");
@@ -183,8 +172,8 @@ public class OrdersDAO {
 		}
 		
 		stmt.executeBatch();
-		c.commit();
+		connection.commit();
 		stmt.close();
-		c.close();
+		connection.close();
 	}
 }
