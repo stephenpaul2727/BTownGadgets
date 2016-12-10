@@ -157,16 +157,34 @@ public class ServletController extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+	@SuppressWarnings("unchecked")
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("IN THE Shopping Cart Controller ......");
 		Customer customer = new Customer();
 		Employee employee = new Employee();
 		OrdersDAO orderDao = new OrdersDAO();
+		LoginCheckDAO loginDao = new LoginCheckDAO();
 		Cart cart = new Cart();
 		List<OrderDetails> orderItems = new ArrayList<OrderDetails>();
 		String action = request.getParameter("action");
 		try {
-			if(action.equals("Update")) {
+			if(action.equals("SignUp")) {
+				String firstname = request.getParameter("firstname");
+				String lastname = request.getParameter("lastname");
+				String email = request.getParameter("email");
+				String username = request.getParameter("username");
+				String password = request.getParameter("password");
+				String address = request.getParameter("address");
+				customer.setFname(firstname);
+				customer.setLname(lastname);
+				customer.setEmail(email);
+				customer.setAddress(address);
+				customer.setUname(username);
+				customer.setPassword(password);
+				loginDao.addCustomer(customer);
+				String redirectUrl = "login.jsp";
+				response.sendRedirect(redirectUrl);
+			} else if(action.equals("Update")) {
 				int itemIndex = Integer.parseInt(request.getParameter("itemIndex"));
 				int updatedQuantity = Integer.parseInt(request.getParameter("updatedQuantity"));
 				HttpSession session = request.getSession();

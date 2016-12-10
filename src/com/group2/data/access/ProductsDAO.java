@@ -10,7 +10,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.group2.bean.OrderDetails;
 import com.group2.bean.Product;
 
 public class ProductsDAO {

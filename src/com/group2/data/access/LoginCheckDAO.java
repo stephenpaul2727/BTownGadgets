@@ -65,6 +65,9 @@ public class LoginCheckDAO {
 			customer.setAddress(rs.getString("address"));
 			customer.setUname(uname);
 		}
+		rs.close();
+		st.close();
+		c.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.err.println(e.getClass().getName()+": "+e.getMessage());
@@ -91,11 +94,36 @@ public class LoginCheckDAO {
 			employee.setUname(uname);
 			employee.setDesignation(rs.getString("designation"));
 		}
+		rs.close();
+		st.close();
+		c.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.err.println(e.getClass().getName()+": "+e.getMessage());
 			System.exit(0);
 		}
 		return employee;
+	}
+	
+	public void addCustomer(Customer customer) {
+		Connection c = null;
+		String sql = "INSERT INTO CUSTOMERS (fname,lname,address,email,uname,pwd) VALUES "
+	      		+ "('%s','%s','%s','%s','%s','%s');";
+		String insertCustomer = String.format(sql, customer.getFname(), customer.getLname(), 
+				customer.getAddress(), customer.getEmail(), customer.getUname(), customer.getPassword());
+		try {
+			Class.forName("org.postgresql.Driver");
+			c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres", "123");
+			PreparedStatement st=c.prepareStatement(insertCustomer);
+			st.executeUpdate();
+			st.close();
+			c.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.err.println(e.getClass().getName()+": "+e.getMessage());
+			System.exit(0);
+		}
+		
+		
 	}
 }

@@ -8,7 +8,14 @@ public class Customer {
 	private String uname;
 	private String address;
 	private String email;
+	private String password;
 	
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
 	public int getCus_id() {
 		return cus_id;
 	}
