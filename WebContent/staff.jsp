@@ -66,7 +66,7 @@
 <p style="margin-left:1%;color:#565c66;font-weight:bold;font-size=30px;font-family:"Comic Sans MS",cursive, sans-serif;>logged in as : 
 <% Employee user = (Employee)session.getAttribute("User"); %>
 <%= user.getFname()%><br/><hr/></p>
-<p style="margin-left:1%;color:#565c66;font-weight:bold;font-size=30px;font-family:"Comic Sans MS",cursive, sans-serif;>with Designation: <%= user.getDesignation()%></p>
+<p style="margin-left:1%;color:#565c66;font-weight:bold;font-size=30px;font-family:"Comic Sans MS",cursive, sans-serif;>Designation: Operations <%= user.getDesignation()%></p>
 
 
 </body>
