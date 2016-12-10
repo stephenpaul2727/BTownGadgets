@@ -8,7 +8,6 @@ import java.sql.Statement;
 public class DataBaseCreater {
 
 	public static void main(String args[]) {
-	      Connection c = null;
 	      Statement stmt = null;
 	     
 	      String drop_cus = "DROP TABLE IF EXISTS CUSTOMERS;";
@@ -184,11 +183,14 @@ public class DataBaseCreater {
 	      		+ "(9,1,'2MP'),(9,2,'Windows 10'),(9,3,'8GB'),(9,4,'Intel i7'),(9,5,'7500mAh'),(9,6,'512GB SSD'),"
 	      		+ "(10,1,'1.3MP'),(10,2,'Windows 8'),(10,3,'4GB'),(10,4,'Intel i5'),(10,5,'4500mAh'),(10,6,'256GB');";
 	      
+
 	      try {
+	    	  Connection c = null;
 	         Class.forName("org.postgresql.Driver");
-	         c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres", "123");
+	         c = DriverManager.getConnection("jdbc:postgresql://ec2-54-221-244-196.compute-1.amazonaws.com:5432/dborp54gjfaa05?user=natamoqhwnfvsu&password=b9e0bb9f16357904cf05e3832d6444225e91f6d17c477d238a73e789f2b208b4&ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory");
 	         stmt = c.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
 	         c.setAutoCommit(false);
+
 	         
 	         stmt.addBatch(drop_ord_details);
 	         stmt.addBatch(drop_emp);
