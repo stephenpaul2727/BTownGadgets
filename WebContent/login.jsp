@@ -16,7 +16,7 @@
 
 <style>
 
-body, html {
+body, html {df
     height: 110%;
     background-repeat: no-repeat;
     background-image: linear-gradient(to left, #3a6186 , #89253e);
@@ -200,7 +200,7 @@ function validate()
 					<input type="text" name="username" class="form-control" id ="user" placeholder="Username" required">
 					<br/><br/>
 					<input type="password" name="password" class="form-control" id="password" placeholder="Password"  required">
-					<br/><br/>
+					<br/><div style="color: #FF0000;">${errorMessage}</div><br><br/>
 					<input type="submit" name="login" class="btn btn-lg btn-primary btn-block btn-signin" value="Login">
 				  </form>
 					
@@ -212,7 +212,7 @@ function validate()
 			</div>
 			<br/>
 			<br/>
-			<div style="color: #FF0000;">${errorMessage}</div><br>
+			
 			<span id="confirmMessage" class="confirmMessage"></span>
 
 </body>
