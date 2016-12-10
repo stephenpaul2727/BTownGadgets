@@ -87,7 +87,7 @@
   <tr>
     <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><b><c:out value="${cartItem.model_name}"/></b></font></td>
     <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><b><c:out value="${cartItem.brand}"/></b></font></td>
-    <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><b><c:out value="${cartItem.price}"/></b></font></td>
+    <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><b>$<c:out value="${cartItem.price}"/></b></font></td>
     <td><font size="2" face="Verdana, Arial, Helvetica, sans-serif">
     	<input type='hidden' name='itemIndex' value='<c:out value="${counter.count}"/>'>
     	<input type='number' name="updatedQuantity" min="1" max="${cartItem.quantity}" value='<c:out value="${cartItem.selectedQuantity}"/>' size='2'>
@@ -98,7 +98,7 @@
   </form> 
 </c:forEach>
 </table><br/><br/>
-<b>Total Cart Price: </b><c:out value="${Cart.totalCartPrice}"></c:out>
+<b>Total Cart Price: </b>$<c:out value="${Cart.totalCartPrice}"></c:out>
 <c:if test="${Cart.itemCount!=0}">
   <form action="ServletController" method="post">
   	<input type="hidden" name="action" value="PlaceOrder">

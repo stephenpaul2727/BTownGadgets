@@ -63,7 +63,7 @@
 
 </div>
 </div>
-<div style="overflow:scroll;height:500px;margin:0px;padding:0px" >
+<div style="overflow:scroll;height:550px;margin:0px;padding:0px" >
 <a href="#"><img src="Images/add13.jpg" style="width:100%; height:435px" /></a>
 <a href="#"><img src="Images/apple2.jpg" style="width:100%; height:435px" /></a>
 <a href="#"><img src="Images/add11.jpg" style="width:100%; height:435px" /></a>

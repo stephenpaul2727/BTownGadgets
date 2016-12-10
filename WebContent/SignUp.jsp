@@ -109,7 +109,8 @@ var regAdd = /^(?=.*\d)[a-zA-Z\s\d\/]+$/;
 <div class="container">
 	<div class="row">
         <div class="col-md-6">
-            <form action="" method="post" id="fileForm" role="form">
+            <form action="ServletController" method="post" id="fileForm" role="form">
+            <input type="hidden" name="action" value="SignUp">
             <fieldset><legend class="" style="color:#440591;font-weight:bold;font-size:30px">SIGN UP</legend>
 
             <div class="form-group">
@@ -130,11 +131,17 @@ var regAdd = /^(?=.*\d)[a-zA-Z\s\d\/]+$/;
             </div>
 
             <div class="form-group">
-                <label for="email"><span class="req">* </span> Email Address: </label> 
+                <label for="email"><span class="req">* </span> Email: </label> 
                     <input class="form-control" required type="text" name="email" id = "email"  onchange="email_validate(this.value);" />   
                         <div class="status" id="status"></div>
             </div>
 
+			<div class="form-group">
+                <label for="address"><span class="req">* </span> Address:  </label> 
+                <textarea class="form-control" name="address" cols="40" rows="5" required></textarea>
+                        <div id="errLast"></div>
+            </div>
+            
             <div class="form-group">
                 <label for="username"><span class="req">* </span> User name:  <small>This will be your login user name</small> </label> 
                     <input class="form-control" type="text" name="username" id = "txt" onkeyup = "Validate(this)" placeholder="minimum 6 letters" required />  
