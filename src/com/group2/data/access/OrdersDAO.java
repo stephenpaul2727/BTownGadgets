@@ -32,19 +32,28 @@ public class OrdersDAO {
         rs = stmt_order.getGeneratedKeys();
         rs.next();
         int order_id = rs.getInt(1);
-        rs = stmt_order.executeQuery("SELECT emp_id FROM EMPLOYEES WHERE designation='Staff' AND emp_id NOT IN (SELECT emp_id FROM ORDER_DETAILS);");
+//        rs = stmt_order.executeQuery("SELECT emp_id FROM EMPLOYEES WHERE designation='Staff' AND emp_id NOT IN (SELECT emp_id FROM ORDER_DETAILS);");
+        rs = stmt_order.executeQuery("SELECT emp_id FROM EMPLOYEES WHERE designation='Staff' AND emp_id NOT IN (SELECT emp_id FROM ORDER_DETAILS "
+        		+ "WHERE emp_id NOT IN (SELECT emp_id FROM DELETED_EMPLOYEES));");
+
         if(rs.next()) {
         	emp_id = rs.getInt("emp_id");
         	System.out.println("Assigned Employee1==>"+emp_id);
         } else {
         	System.out.println("=======All employees are assigned atleast one order item========");
-        	rs = stmt_order.executeQuery("SELECT emp_id FROM ORDER_DETAILS WHERE status != 'Pending' LIMIT 1;");
+//        	rs = stmt_order.executeQuery("SELECT emp_id FROM ORDER_DETAILS WHERE status != 'Pending' LIMIT 1;");
+        	rs = stmt_order.executeQuery("SELECT emp_id FROM ORDER_DETAILS WHERE status != 'Pending' "
+        			+ "AND emp_id NOT IN (SELECT emp_id FROM DELETED_EMPLOYEES) LIMIT 1;");
+
             if(rs.next()) {
             	emp_id = rs.getInt("emp_id");
             	System.out.println("Assigned Employee2==>"+emp_id);
             } else {
             	System.out.println("=========All employees have Pending items to deliver=========");
-            	rs = stmt_order.executeQuery("SELECT count(emp_id),emp_id FROM ORDER_DETAILS GROUP BY emp_id ORDER BY count ASC LIMIT 1;");
+//            	rs = stmt_order.executeQuery("SELECT count(emp_id),emp_id FROM ORDER_DETAILS GROUP BY emp_id ORDER BY count ASC LIMIT 1;");
+            	rs = stmt_order.executeQuery("SELECT count(emp_id),emp_id FROM ORDER_DETAILS "
+            			+ "WHERE emp_id NOT IN (SELECT emp_id FROM DELETED_EMPLOYEES) GROUP BY emp_id ORDER BY count ASC LIMIT 1;");
+
             	if(rs.next()) {
             		emp_id = rs.getInt("emp_id");
             		System.out.println("Assigned Employee3==>"+emp_id);

@@ -25,7 +25,7 @@ public class LoginCheckDAO {
 			if (rs.next()) {
 				return CUSTOMER;
 			} else {
-				st = connection.prepareStatement("SELECT designation FROM EMPLOYEES WHERE uname=? AND pwd=?");
+				st = connection.prepareStatement("SELECT designation FROM EMPLOYEES WHERE uname=? AND pwd=? and emp_id NOT IN (SELECT emp_id FROM DELETED_EMPLOYEES);");
 				st.setString(1, username);
 				st.setString(2, password);
 				rs = st.executeQuery();

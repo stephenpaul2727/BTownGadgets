@@ -17,6 +17,7 @@ public class DataBaseCreater {
 	      String drop_ord_details = "DROP TABLE IF EXISTS ORDER_DETAILS;";
 	      String drop_spec_type = "DROP TABLE IF EXISTS SPECIFICATION_TYPES;";
 	      String drop_spec_value = "DROP TABLE IF EXISTS SPECIFICATION_VALUES;";
+	      String drop_deleted_emp = "DROP TABLE IF EXISTS DELETED_EMPLOYEES";
 	      String drop_type_desig = "DROP TYPE desig_type_enum;";
 	      String drop_type_cat = "DROP TYPE cat_type_enum;";
 	      String drop_type_status = "DROP TYPE status_type_enum;";
@@ -50,6 +51,8 @@ public class DataBaseCreater {
 	      String create_spec_values = "CREATE TABLE SPECIFICATION_VALUES("
 	      		+ "pro_id INT REFERENCES PRODUCTS, spec_id INT REFERENCES SPECIFICATION_TYPES,"
 	      		+ "spec_value VARCHAR(20) NOT NULL, PRIMARY KEY(pro_id, spec_id));";
+	      String create_deleted_emp = "CREATE TABLE DELETED_EMPLOYEES("
+	        		+ "emp_id INT REFERENCES EMPLOYEES);";
 	      
 	      String insert_cus_1 = "INSERT INTO CUSTOMERS (fname,lname,address,email,uname,pwd) VALUES "
 	      		+ "('Karthikeya','Dulla','Address-1','karthik@gmail.com','karthik123','karthik@123');";
@@ -187,6 +190,7 @@ public class DataBaseCreater {
 			stmt = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			connection.setAutoCommit(false);
 	         
+			stmt.addBatch(drop_deleted_emp);
 	         stmt.addBatch(drop_ord_details);
 	         stmt.addBatch(drop_emp);
 	         stmt.addBatch(drop_spec_value);
@@ -213,6 +217,7 @@ public class DataBaseCreater {
 	         stmt.addBatch(create_ord_details);
 	         stmt.addBatch(create_spec_types);
 	         stmt.addBatch(create_spec_values);
+	         stmt.addBatch(create_deleted_emp);
 	         stmt.executeBatch();
 	         System.out.println("============CREATED TABLES=============");
 	         stmt.addBatch(insert_cus_1);
