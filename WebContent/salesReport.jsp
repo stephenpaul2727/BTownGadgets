@@ -73,7 +73,7 @@ contentType="text/html; charset=UTF-8"
 <tr>
 <td><%=report.get(i).getOrder_date()%></td>
 <td><%=report.get(i).getModel_name()%></td>
-<td><%=report.get(i).getQuantity()%></td>
+<td><%=report.get(i).getSelectedQuantity()%></td>
 <td><%=report.get(i).getTotalUnitPrice()%></td>
 <td><%=report.get(i).getCus_fname()%></td>
 </tr>
