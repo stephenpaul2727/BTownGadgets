@@ -85,7 +85,7 @@
 <td><input type="checkbox" name="selectedItems" value=<%=i %>></td>
 <td><%=orderItem.getModel_name()%></td>
 <td><%=orderItem.getBrand()%></td>
-<td><%=orderItem.getTotalUnitPrice()%></td>
+<td>$<%=orderItem.getTotalUnitPrice()%></td>
 <td><%=orderItem.getSelectedQuantity()%></td>
 <td><%=orderItem.getEnd_date()%></td>
 <td><%=orderItem.getCus_fname()%></td>

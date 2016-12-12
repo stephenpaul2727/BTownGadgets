@@ -15,7 +15,7 @@
 <script type="text/javascript">
 function checkDeliveries(status) {
 	if(status == true) {
-		var r = confirm("Employee has Pending Deliveries/Returns. Do you want to re-allocate those orders ?");
+		var r = confirm("Employee has Pending Deliveries/Returns. Do you want these orders to be re-allocated ?");
 		if(r == true) {
 			return true;
 		} else {
