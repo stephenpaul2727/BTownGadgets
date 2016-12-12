@@ -38,7 +38,7 @@ public class ServletController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("IN THE SERVLET ......");
+		System.out.println("IN THE SERVLET GET ......");
 		Customer customer = new Customer();
 		Employee employee = new Employee();
 		Product product = new Product();
@@ -49,6 +49,7 @@ public class ServletController extends HttpServlet {
 		OrdersDAO ordersDao = new OrdersDAO();
 		List<Product> proList = new ArrayList<Product>();
 		List<OrderDetails> orderItems = new ArrayList<OrderDetails>();
+		List<Employee> employeeList = new ArrayList<Employee>();
 		String here = request.getParameter("what");
 		try {
 			if(here.equals("login")) {
@@ -71,8 +72,8 @@ public class ServletController extends HttpServlet {
 							response.sendRedirect("staff.jsp");
 						} else if(designation.equals("Supervisor")) {
 							response.sendRedirect("supervisor.jsp");
-						} else if(designation.equals("SalesManager")) {
-							response.sendRedirect("salesmanager.jsp");
+						} else if(designation.equals("Manager")) {
+							response.sendRedirect("manager.jsp");
 						}
 					}
 					
@@ -136,6 +137,39 @@ public class ServletController extends HttpServlet {
 				orderItems = ordersDao.getAssignedDeliveriesByStatus("Delivered", employee.getEmp_id());
 				session.setAttribute("PendingReturns", orderItems);
 				String redirectUrl = "pendingReturns.jsp";
+				response.sendRedirect(redirectUrl);
+			} else if (here.equals("Generate Sales Report")){
+				String startDate=request.getParameter("startDate");
+				String endDate=request.getParameter("endDate");
+				String customerName = request.getParameter("customerName");
+				System.out.println("Getting Sales for Customer:"+customerName);
+				String name[] = customerName.split("_");
+				orderItems = ordersDao.getSalesReport(startDate, endDate, name[0], name[1]);
+				request.setAttribute("SalesReport", orderItems);
+				String redirectUrl = "salesReport.jsp";
+				RequestDispatcher rd = request.getRequestDispatcher(redirectUrl);
+				rd.forward(request, response);
+			} else if (here.equals("DeleteEmployee")){
+				HttpSession session = request.getSession();
+				employeeList = loginDao.getAllEmployees();
+				session.setAttribute("EmployeesStaff", employeeList);
+				String redirectUrl = "deleteEmployee.jsp";
+				RequestDispatcher rd = request.getRequestDispatcher(redirectUrl);
+				rd.forward(request, response);
+			} else if (here.equals("DeleteEmp")) {
+				HttpSession session = request.getSession();
+				int empID = Integer.parseInt(request.getParameter("employeID"));
+				System.out.println("IN Servlet to delete emp::"+empID);
+				ordersDao.reassignDeliveries(empID);
+				loginDao.deleteEmployee(empID);
+				employeeList = loginDao.getAllEmployees();
+//				for(Employee emp : employeeList) {
+//					if(emp.getEmp_id() == empID) {
+//						employeeList.remove(emp);
+//					}
+//				}
+				session.setAttribute("EmployeesStaff", employeeList);
+				String redirectUrl = "deleteEmployee.jsp";
 				response.sendRedirect(redirectUrl);
 			}
 			

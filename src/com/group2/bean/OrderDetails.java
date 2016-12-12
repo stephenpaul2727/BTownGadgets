@@ -9,7 +9,14 @@ public class OrderDetails extends CartItem {
 	private String order_date;
 	private int cus_id;
 	private String cus_fname;
+	private String cus_lname;
 	
+	public String getCus_lname() {
+		return cus_lname;
+	}
+	public void setCus_lname(String cus_lname) {
+		this.cus_lname = cus_lname;
+	}
 	public int getCus_id() {
 		return cus_id;
 	}

@@ -26,7 +26,7 @@ public class DataBaseCreater {
 	      		+ "cus_id SERIAL PRIMARY KEY, fname VARCHAR(20), lname VARCHAR(20), address TEXT,"
 	      		+ "email VARCHAR(20), uname VARCHAR(20), pwd VARCHAR(20));";
 	      
-	      String designation_type_enum = "CREATE TYPE desig_type_enum AS ENUM ('Staff', 'Supervisor', 'SalesManager');";
+	      String designation_type_enum = "CREATE TYPE desig_type_enum AS ENUM ('Staff', 'Supervisor', 'Manager');";
 	      String create_emp = "CREATE TABLE EMPLOYEES("
 		      		+ "emp_id SERIAL PRIMARY KEY,fname VARCHAR(20), lname VARCHAR(20), address TEXT,"
 		      		+ "email VARCHAR(20), designation desig_type_enum, uname VARCHAR(20), pwd VARCHAR(20));";
@@ -75,28 +75,14 @@ public class DataBaseCreater {
 	      String insert_cus_10 = "INSERT INTO CUSTOMERS (fname,lname,address,email,uname,pwd) VALUES "
 	      		+ "('Anvesh','Nayan','456, Hoosier Court Apartments, Bloomington, Indiana','anvesh@gmail.com','anvesh123','anvesh@123');";
 	      
-	      String insert_emp_a = "INSERT INTO EMPLOYEES (fname,lname,address,email,designation,uname,pwd) VALUES "
+	      String insert_emp_1 = "INSERT INTO EMPLOYEES (fname,lname,address,email,designation,uname,pwd) VALUES "
 		      		+ "('Rahul','Raghunathan','Address-a','rahul@gmail.com','Staff','rahul123','rahul@123');";
-	      String insert_emp_b = "INSERT INTO EMPLOYEES (fname,lname,address,email,designation,uname,pwd) VALUES "
-		      		+ "('Anil','Shivaraj','Address-b','anil@gmail.com','Supervisor','anil123','anil@123');";
-	      String insert_emp_c = "INSERT INTO EMPLOYEES (fname,lname,address,email,designation,uname,pwd) VALUES "
-		      		+ "('Hari','Chatti','Address-c','hari@gmail.com','SalesManager','hari123','hari@123');";
-	      String insert_emp_d = "INSERT INTO EMPLOYEES (fname,lname,address,email,designation,uname,pwd) VALUES "
+	      String insert_emp_2 = "INSERT INTO EMPLOYEES (fname,lname,address,email,designation,uname,pwd) VALUES "
+		      		+ "('Hari','Chatti','Address-c','hari@gmail.com','Manager','hari123','hari@123');";
+	      String insert_emp_3 = "INSERT INTO EMPLOYEES (fname,lname,address,email,designation,uname,pwd) VALUES "
 		      		+ "('Shalmali','Pawde','Address-d','shalmali@gmail.com','Staff','shalmali123','shalmali@123');";
-	      String insert_emp_e = "INSERT INTO EMPLOYEES (fname,lname,address,email,designation,uname,pwd) VALUES "
-		      		+ "('Monika','Goyal','Address-e','monika@gmail.com','Supervisor','monika123','monika@123');";
-		  String insert_emp_f = "INSERT INTO EMPLOYEES (fname,lname,address,email,designation,uname,pwd) VALUES "
+		  String insert_emp_4 = "INSERT INTO EMPLOYEES (fname,lname,address,email,designation,uname,pwd) VALUES "
 		      		+ "('Rama','Kumar','Address-e','rama@gmail.com','Staff','rama123','rama@123');";
-		  String insert_emp_g = "INSERT INTO EMPLOYEES (fname,lname,address,email,designation,uname,pwd) VALUES "
-		      		+ "('Steve','Johnson','Address-e','steve@gmail.com','SalesManager','steve123','steve@123');";
-		  String insert_emp_h = "INSERT INTO EMPLOYEES (fname,lname,address,email,designation,uname,pwd) VALUES "
-		      		+ "('Padmini','Patlolla','Address-e','padmini@gmail.com','Staff','padmini123','padmini@123');";
-		  String insert_emp_i = "INSERT INTO EMPLOYEES (fname,lname,address,email,designation,uname,pwd) VALUES "
-		      		+ "('Bhavana','Yalla','Address-e','bhavana@gmail.com','Supervisor','bhavana123','bhavana@123');";
-		  String insert_emp_j = "INSERT INTO EMPLOYEES (fname,lname,address,email,designation,uname,pwd) VALUES "
-		      		+ "('Sindhuja','Beram','Address-e','sindhuja@gmail.com','SalesManager','sindhuja123','sindhuja@123');";
-		  String insert_emp_k = "INSERT INTO EMPLOYEES (fname,lname,address,email,designation,uname,pwd) VALUES "
-		      		+ "('Sushmitha','Vuppula','Address-e','sushmitha@gmail.com','Staff','sushmitha123','sushmitha@123');";
 	      
 	      String insert_cat_1 = "INSERT INTO CATEGORY (cat_name) VALUES ('Mobile');";
 	      String insert_cat_2 = "INSERT INTO CATEGORY (cat_name) VALUES ('Camera');";
@@ -126,45 +112,45 @@ public class DataBaseCreater {
 	      String insert_ord_10 = "INSERT INTO ORDERS (cus_id, order_date) VALUES (9, '2016-11-30');";
 	      
 	      String insert_ord_det_1 = "INSERT INTO ORDER_DETAILS (order_id, pro_id, quantity, price, start_date, end_date, status, emp_id) "
-	      		+ "VALUES (1,2,3,1770,'2016-05-24','2016-06-24','Returned',1);";
+	      		+ "VALUES (1,2,3,177,'2016-05-24','2016-06-24','Returned',1);";
 	      String insert_ord_det_2 = "INSERT INTO ORDER_DETAILS (order_id, pro_id, quantity, price, start_date, end_date, status, emp_id) "
-	      		+ "VALUES (1,4,2,1400,'2016-05-24','2016-06-24','Returned',1);";
+	      		+ "VALUES (1,4,2,50,'2016-05-24','2016-06-24','Returned',1);";
 	      String insert_ord_det_3 = "INSERT INTO ORDER_DETAILS (order_id, pro_id, quantity, price, start_date, end_date, status, emp_id) "
-	      		+ "VALUES (2,10,1,420,null,null,'Pending',4);";
+	      		+ "VALUES (2,10,1,37,null,null,'Pending',4);";
 	      String insert_ord_det_4 = "INSERT INTO ORDER_DETAILS (order_id, pro_id, quantity, price, start_date, end_date, status, emp_id) "
-	      		+ "VALUES (3,6,2,360,null,null,'Pending',11);";
+	      		+ "VALUES (3,6,2,36,null,null,'Pending',4);";
 	      String insert_ord_det_5 = "INSERT INTO ORDER_DETAILS (order_id, pro_id, quantity, price, start_date, end_date, status, emp_id) "
-		      		+ "VALUES (4,1,2,1300,'2016-04-25','2016-05-23','Returned',8);";
+		      		+ "VALUES (4,1,2,130,'2016-04-25','2016-05-23','Returned',3);";
 	      String insert_ord_det_6 = "INSERT INTO ORDER_DETAILS (order_id, pro_id, quantity, price, start_date, end_date, status, emp_id) "
-		      		+ "VALUES (4,2,2,1180,'2016-04-25','2016-05-23','Returned',6);";
+		      		+ "VALUES (4,2,2,118,'2016-04-25','2016-05-23','Returned',3);";
 	      String insert_ord_det_7 = "INSERT INTO ORDER_DETAILS (order_id, pro_id, quantity, price, start_date, end_date, status, emp_id) "
-		      		+ "VALUES (5,3,2,1000,'2016-05-09','2016-06-08','Returned',4);";
+		      		+ "VALUES (5,3,2,60,'2016-05-09','2016-06-08','Returned',4);";
 	      String insert_ord_det_8 = "INSERT INTO ORDER_DETAILS (order_id, pro_id, quantity, price, start_date, end_date, status, emp_id) "
-		      		+ "VALUES (5,1,1,650,'2016-05-09','2016-06-08','Returned',11);";
+		      		+ "VALUES (5,1,1,65,'2016-05-09','2016-06-08','Returned',4);";
 	      String insert_ord_det_9 = "INSERT INTO ORDER_DETAILS (order_id, pro_id, quantity, price, start_date, end_date, status, emp_id) "
-		      		+ "VALUES (6,5,1,600,'2016-06-15','2016-07-14','Returned',8);";
+		      		+ "VALUES (6,5,1,28,'2016-06-15','2016-07-14','Returned',1);";
 	      String insert_ord_det_10 = "INSERT INTO ORDER_DETAILS (order_id, pro_id, quantity, price, start_date, end_date, status, emp_id) "
-		      		+ "VALUES (6,7,1,140,'2016-06-15','2016-07-14','Returned',6);";
+		      		+ "VALUES (6,7,1,14,'2016-06-15','2016-07-14','Returned',1);";
 	      String insert_ord_det_11 = "INSERT INTO ORDER_DETAILS (order_id, pro_id, quantity, price, start_date, end_date, status, emp_id) "
-		      		+ "VALUES (7,4,3,2100,'2016-07-19','2016-08-19','Returned',4);";
+		      		+ "VALUES (7,4,3,75,'2016-07-19','2016-08-19','Returned',3);";
 	      String insert_ord_det_12 = "INSERT INTO ORDER_DETAILS (order_id, pro_id, quantity, price, start_date, end_date, status, emp_id) "
-		      		+ "VALUES (7,8,1,450,'2016-07-19','2016-08-19','Returned',4);";
+		      		+ "VALUES (7,8,1,45,'2016-07-19','2016-08-19','Returned',3);";
 	      String insert_ord_det_13 = "INSERT INTO ORDER_DETAILS (order_id, pro_id, quantity, price, start_date, end_date, status, emp_id) "
-		      		+ "VALUES (8,8,4,1800,'2016-08-23','2016-09-22','Returned',6);";
+		      		+ "VALUES (8,8,4,180,'2016-08-23','2016-09-22','Returned',1);";
 	      String insert_ord_det_14 = "INSERT INTO ORDER_DETAILS (order_id, pro_id, quantity, price, start_date, end_date, status, emp_id) "
-		      		+ "VALUES (8,1,1,650,'2016-08-23','2016-09-22','Delivered',8);";
+		      		+ "VALUES (8,1,1,65,'2016-08-23','2016-09-22','Delivered',1);";
 	      String insert_ord_det_15 = "INSERT INTO ORDER_DETAILS (order_id, pro_id, quantity, price, start_date, end_date, status, emp_id) "
-		      		+ "VALUES (9,2,1,590,'2016-09-07','2016-10-06','Returned',11);";
+		      		+ "VALUES (9,2,1,59,'2016-09-07','2016-10-06','Returned',3);";
 	      String insert_ord_det_16 = "INSERT INTO ORDER_DETAILS (order_id, pro_id, quantity, price, start_date, end_date, status, emp_id) "
-		      		+ "VALUES (9,10,1,420,'2016-09-07','2016-10-06','Delivered',11);";
+		      		+ "VALUES (9,10,1,37,'2016-09-07','2016-10-06','Delivered',3);";
 	      String insert_ord_det_17 = "INSERT INTO ORDER_DETAILS (order_id, pro_id, quantity, price, start_date, end_date, status, emp_id) "
-		      		+ "VALUES (9,3,1,500,'2016-09-07','2016-10-06','Delivered',8);";
+		      		+ "VALUES (9,3,1,30,'2016-09-07','2016-10-06','Delivered',3);";
 	      String insert_ord_det_18 = "INSERT INTO ORDER_DETAILS (order_id, pro_id, quantity, price, start_date, end_date, status, emp_id) "
-		      		+ "VALUES (10,7,3,420,'2016-12-03','2017-1-02','Delivered',6);";
+		      		+ "VALUES (10,7,3,42,'2016-12-03','2017-1-02','Delivered',1);";
 	      String insert_ord_det_19 = "INSERT INTO ORDER_DETAILS (order_id, pro_id, quantity, price, start_date, end_date, status, emp_id) "
-		      		+ "VALUES (10,5,1,600,null,null,'Pending',6);";
+		      		+ "VALUES (10,5,1,28,null,null,'Pending',1);";
 	      String insert_ord_det_20 = "INSERT INTO ORDER_DETAILS (order_id, pro_id, quantity, price, start_date, end_date, status, emp_id) "
-		      		+ "VALUES (10,8,1,450,null,null,'Pending',4);";
+		      		+ "VALUES (10,8,1,45,null,null,'Pending',1);";
 	      
 	      
 	      String insert_spec_type_1 = "INSERT INTO SPECIFICATION_TYPES (spec_name) VALUES ('Megapixel_count');";
@@ -232,17 +218,10 @@ public class DataBaseCreater {
 	         stmt.addBatch(insert_cus_10);
 	         stmt.executeBatch();
 	         System.out.println("==============CUSTOMERS inserted===============");
-	         stmt.addBatch(insert_emp_a);
-	         stmt.addBatch(insert_emp_b);
-	         stmt.addBatch(insert_emp_c);
-	         stmt.addBatch(insert_emp_d);
-	         stmt.addBatch(insert_emp_e);
-	         stmt.addBatch(insert_emp_f);
-	         stmt.addBatch(insert_emp_g);
-	         stmt.addBatch(insert_emp_h);
-	         stmt.addBatch(insert_emp_i);
-	         stmt.addBatch(insert_emp_j);
-	         stmt.addBatch(insert_emp_k);
+	         stmt.addBatch(insert_emp_1);
+	         stmt.addBatch(insert_emp_2);
+	         stmt.addBatch(insert_emp_3);
+	         stmt.addBatch(insert_emp_4);
 	         stmt.executeBatch();
 	         System.out.println("==============EMPLOYEES inserted===============");
 	         stmt.addBatch(insert_cat_1);
