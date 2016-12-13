@@ -14,6 +14,12 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>BTownGadgets</title>
+<script>
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover();   
+});
+</script>
+
 </head>
 <body>
 <body style="background-color:#d7dfed"; overflow:scroll>
@@ -51,8 +57,8 @@
 <div class="dropdown">
 <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color:black">About us</a>
 <ul class="dropdown-menu" style="background-color:#86ccb4;width:184px">
-<li><a href="#">Contact Details</a></li>
-<li><a href="#">Location</a></li>
+<li><a href="#" data-toggle="popover" title ="Phone Numbers" data-trigger="hover" data-placement="top" data-content="(Karthik) &nbsp   8123603159 (Stephen)   &nbsp 8129551395 (Vinita) &nbsp   7658941023">Contact Details</a></li>
+<li><a href="#" data-toggle="popover" title="Address" data-trigger="hover" data-placement="bottom" data-content="Apt. B304, Fountain park Apts, Bloomington, IN 47408">Location</a></li>
 
 </ul>
 </div>
